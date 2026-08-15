@@ -12,16 +12,19 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 
-    const RegisterUser = async () => {};
+    const Register = async () => {};
 
-    const LoginUser = async () => {};
+    const Login = async () => {};
 
-    const LogoutUser = async () => {};
+    const Logout = async () => {};
 
     const DeleteUser = async () => {};
 
     const value = {
-        
+        Register,
+        Login,
+        Logout,
+        DeleteUser,
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
