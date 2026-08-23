@@ -1,6 +1,9 @@
 // Routes
 import PageRoutes from "./routes/routes";
 
+// Tanstack Query
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 // Snackbar
 import { SnackbarProvider } from "notistack";
 
@@ -9,11 +12,13 @@ import { AuthProvider } from "./common/contexts/AuthContext";
 
 function App() {
     return (
-        <SnackbarProvider maxSnack={3}>
-            <AuthProvider>
-                <PageRoutes />
-            </AuthProvider>
-        </SnackbarProvider>
+        <QueryClientProvider client={new QueryClient()}>
+            <SnackbarProvider maxSnack={3}>
+                <AuthProvider>
+                    <PageRoutes />
+                </AuthProvider>
+            </SnackbarProvider>
+        </QueryClientProvider>
     );
 }
 
