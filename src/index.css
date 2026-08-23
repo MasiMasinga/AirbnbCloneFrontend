@@ -1,3 +1,56 @@
 @import '@astryxdesign/core/reset.css';
 @import '@astryxdesign/core/astryx.css';
 @import '@astryxdesign/theme-neutral/theme.css';
+@import url('https://googleapis.com');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.login-split-grid {
+  container-type: inline-size;
+  container-name: login-split;
+  padding: var(--spacing-8);
+}
+
+.login-split-image {
+  width: 100%;
+  order: 0;
+}
+
+.login-form-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+  
+@container login-split (max-width: 511px) {
+  .login-split-grid {
+    padding: var(--spacing-4);
+  }
+  .login-split-image {
+    order: -1;
+  }
+}
+
+.mixed-gallery-grid {
+  display: grid;
+  gap: var(--spacing-3);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mixed-gallery-hero {
+  grid-column: span 2;
+}
+
+@container gallery (max-width: 720px) {
+  .mixed-gallery-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mixed-gallery-hero {
+    grid-column: 1 / -1;
+  }
+}
