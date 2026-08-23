@@ -11,7 +11,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 
-
     const Register = async () => {};
 
     const Login = async () => {};
