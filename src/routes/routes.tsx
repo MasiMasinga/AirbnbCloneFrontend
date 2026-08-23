@@ -11,11 +11,13 @@ import Support from "../pages/guest/support";
 import GuestProfile from "../pages/guest/profile";
 import OwnerProfile from "../pages/owner/profile";
 import Bookings from "../pages/owner/bookings";
+import Landing from "../pages/landing";
 
 const PageRoutes = () => {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path="/" element={<Landing />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/sign-up" element={<SignUp />} />
                 <Route path="/guest" element={<Guest />} />
