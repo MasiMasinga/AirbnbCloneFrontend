@@ -13,6 +13,10 @@ import OwnerProfile from "../pages/owner/profile";
 import Bookings from "../pages/owner/bookings";
 import Landing from "../pages/landing";
 
+// Components
+import DashboardLayout from "../common/layout/DashboardLayout";
+import PageNotFound from "../common/components/PageNotFound";
+
 const PageRoutes = () => {
     return (
         <BrowserRouter>
@@ -20,13 +24,16 @@ const PageRoutes = () => {
                 <Route path="/" element={<Landing />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/sign-up" element={<SignUp />} />
-                <Route path="/guest" element={<Guest />} />
-                <Route path="/listings" element={<Listings />} />
-                <Route path="/review" element={<Review />} />
-                <Route path="/support" element={<Support />} />
-                <Route path="/booking" element={<Bookings />} />
-                <Route path="/guest/profile" element={<GuestProfile />} />
-                <Route path="/owner/profile" element={<OwnerProfile />} />
+                <Route path="*" element={<PageNotFound />} />
+                <Route element={<DashboardLayout />}>
+                    <Route path="/guest" element={<Guest />} />
+                    <Route path="/listings" element={<Listings />} />
+                    <Route path="/review" element={<Review />} />
+                    <Route path="/support" element={<Support />} />
+                    <Route path="/booking" element={<Bookings />} />
+                    <Route path="/guest/profile" element={<GuestProfile />} />
+                    <Route path="/owner/profile" element={<OwnerProfile />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );
