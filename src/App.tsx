@@ -10,9 +10,11 @@ import { SnackbarProvider } from "notistack";
 // Context
 import { AuthProvider } from "./common/contexts/AuthContext";
 
+const queryClient = new QueryClient();
+
 function App() {
     return (
-        <QueryClientProvider client={new QueryClient()}>
+        <QueryClientProvider client={queryClient}>
             <SnackbarProvider maxSnack={3}>
                 <AuthProvider>
                     <PageRoutes />
