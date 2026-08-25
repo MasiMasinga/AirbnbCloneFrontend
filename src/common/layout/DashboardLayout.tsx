@@ -1,27 +1,34 @@
 // React Router Dom
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
+
+// Astryx
+import { AppShell, SideNav, TopNav, TopNavHeading } from "@astryxdesign/core";
 
 // Components
+import GuestDrawerLinkList from "./containers/GuestDrawerLinkList";
+import HostDrawerLinkList from "./containers/HostDrawerLinkList";
 
 const DashboardLayout = () => {
+    const { pathname } = useLocation();
+    const isHostMode = pathname.startsWith("/host");
+
     return (
-        <div>
-            <div>Main App Bar</div>
-
-            <div>Dashboard Side Bar</div>
-
-            <div
-                style={{
-                    flexGrow: 1,
-                    paddingTop: 6,
-                    width: "100%",
-                    minHeight: "100vh",
-                    position: "relative",
-                }}
-            >
-                <Outlet />
-            </div>
-        </div>
+        <AppShell
+            height="fill"
+            contentPadding={4}
+            topNav={
+                <TopNav
+                    heading={<TopNavHeading heading="AirbnbClone" headingHref="/" />}
+                />
+            }
+            sideNav={
+                <SideNav>
+                    {isHostMode ? <HostDrawerLinkList /> : <GuestDrawerLinkList />}
+                </SideNav>
+            }
+        >
+            <Outlet />
+        </AppShell>
     );
 };
 
