@@ -4,13 +4,19 @@ import { Grid } from "@astryxdesign/core/Grid";
 import { Center } from "@astryxdesign/core/Center";
 import { Card } from "@astryxdesign/core/Card";
 
+// React Router
+import { useLocation } from "react-router";
+
 // Utils
 import { COLUMN_MIN_WIDTH } from "../../../common/utils/constants";
 
 // Image
 import MosqueImage from "../../../assets/mosque.jpg";
+import BrazilianBeachImage from "../../../assets/pexels-alicedecasttro-10849497.jpg";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+    const location = useLocation();
+
     return (
         <Center axis="both" height="100vh" padding={6}>
             <VStack gap={4} width="100%">
@@ -41,8 +47,16 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
                                 >
                                     <img
                                         className="login-split-image"
-                                        src={MosqueImage}
-                                        alt="Two people working at a desk"
+                                        src={
+                                            location.pathname === "/login"
+                                                ? BrazilianBeachImage
+                                                : MosqueImage
+                                        }
+                                        alt={
+                                            location.pathname === "/login"
+                                                ? "Brazilian Beach"
+                                                : "Mosque"
+                                        }
                                     />
                                 </Card>
                             </div>
