@@ -3,7 +3,7 @@ import { HStack } from "@astryxdesign/core/Stack";
 import { Button } from "@astryxdesign/core/Button";
 
 // Image
-import AirbnbLogo from "../../../assets/airbnb-icon.png";
+import AirbnbLogo from "../../../assets/logo_airbnb.webp";
 
 const Navbar = () => {
     return (
@@ -11,7 +11,7 @@ const Navbar = () => {
             <img
                 src={AirbnbLogo}
                 alt="Airbnb Logo"
-                style={{ height: "40px" }}
+                style={{ height: "30px" }}
             />
             <Button
                 label="Get Started"

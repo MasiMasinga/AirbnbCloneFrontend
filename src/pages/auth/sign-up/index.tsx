@@ -18,6 +18,9 @@ import { Link } from "react-router";
 // Components
 import AuthLayout from "../components/AuthLayout";
 
+// Image
+import AirbnbLogo from "../../../assets/logo_airbnb.webp";
+
 const SignUp = () => {
     const [email, setEmail] = useState("");
     const [companyName, setCompanyName] = useState("");
@@ -31,7 +34,14 @@ const SignUp = () => {
                 <VStack gap={4} height="100%">
                     <HStack gap={2} vAlign="center">
                         <Text type="body" weight="bold">
-                            Airbnb Clone.
+                            <Link to="/">
+                                <img
+                                    src={AirbnbLogo}
+                                    alt="Airbnb Clone Logo"
+                                    width={60}
+                                    height={60}
+                                />
+                            </Link>
                         </Text>
                     </HStack>
 

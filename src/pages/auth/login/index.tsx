@@ -7,13 +7,15 @@ import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
 import { TextInput } from "@astryxdesign/core/TextInput";
 import { Button } from "@astryxdesign/core/Button";
-// import { Link } from "@astryxdesign/core/Link";
 
 // React Router
 import { Link } from "react-router";
 
 // Components
 import AuthLayout from "../components/AuthLayout";
+
+// Image
+import AirbnbLogo from "../../../assets/logo_airbnb.webp";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -25,7 +27,14 @@ const Login = () => {
                 <VStack gap={4} height="100%">
                     <HStack gap={2} vAlign="center">
                         <Text type="body" weight="bold">
-                            Airbnb Clone.
+                            <Link to="/">
+                                <img
+                                    src={AirbnbLogo}
+                                    alt="Airbnb Clone Logo"
+                                    width={60}
+                                    height={60}
+                                />
+                            </Link>
                         </Text>
                     </HStack>
 
