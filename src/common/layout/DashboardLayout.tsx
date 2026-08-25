@@ -17,6 +17,9 @@ import { UserCircleIcon, LogOut } from "lucide-react";
 import GuestDrawerLinkList from "./containers/GuestDrawerLinkList";
 import HostDrawerLinkList from "./containers/HostDrawerLinkList";
 
+// Images
+import AirbnbLogo from "../../assets/logo_airbnb.webp";
+
 const DashboardLayout = () => {
     const { pathname } = useLocation();
     const isHostMode = pathname.startsWith("/host");
@@ -28,7 +31,16 @@ const DashboardLayout = () => {
             topNav={
                 <TopNav
                     heading={
-                        <TopNavHeading heading="AirbnbClone" headingHref="/" />
+                        <TopNavHeading
+                            headingHref="/"
+                            logo={
+                                <img
+                                    src={AirbnbLogo}
+                                    alt="Airbnb Logo"
+                                    style={{ height: "25px" }}
+                                />
+                            }
+                        />
                     }
                     endContent={
                         <TopNavMenu

@@ -11,7 +11,7 @@ const Navbar = () => {
             <img
                 src={AirbnbLogo}
                 alt="Airbnb Logo"
-                style={{ height: "30px" }}
+                style={{ height: "20px" }}
             />
             <Button
                 label="Get Started"
