@@ -26,6 +26,10 @@ body {
   height: 100%;
   object-fit: cover;
 }
+
+.link-auth-button {
+  color: #F5394F;
+}
   
 @container login-split (max-width: 511px) {
   .login-split-grid {

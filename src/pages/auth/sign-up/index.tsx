@@ -11,7 +11,9 @@ import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
 import { TextInput } from "@astryxdesign/core/TextInput";
 import { Button } from "@astryxdesign/core/Button";
-import { Link } from "@astryxdesign/core/Link";
+
+// React Router
+import { Link } from "react-router";
 
 // Components
 import AuthLayout from "../components/AuthLayout";
@@ -199,7 +201,7 @@ const SignUp = () => {
                     </StackItem>
                     <Text type="supporting" color="secondary">
                         Already have an account?{" "}
-                        <Link href="/login" type="supporting">
+                        <Link to="/login" className="link-auth-button">
                             Log in
                         </Link>
                     </Text>
