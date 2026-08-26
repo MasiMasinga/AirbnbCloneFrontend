@@ -94,16 +94,7 @@ const SignUp = () => {
                                             label="First Name"
                                             isLabelHidden
                                             type="text"
-                                            placeholder="John"
-                                            value={email}
-                                            onChange={setEmail}
-                                            size="lg"
-                                        />
-                                        <TextInput
-                                            label="Last Name"
-                                            isLabelHidden
-                                            type="text"
-                                            placeholder="Doe"
+                                            placeholder="John Doe"
                                             value={email}
                                             onChange={setEmail}
                                             size="lg"
@@ -162,16 +153,7 @@ const SignUp = () => {
                                             label="First Name"
                                             isLabelHidden
                                             type="text"
-                                            placeholder="John"
-                                            value={email}
-                                            onChange={setEmail}
-                                            size="lg"
-                                        />
-                                        <TextInput
-                                            label="Last Name"
-                                            isLabelHidden
-                                            type="text"
-                                            placeholder="Doe"
+                                            placeholder="John Doe"
                                             value={email}
                                             onChange={setEmail}
                                             size="lg"
