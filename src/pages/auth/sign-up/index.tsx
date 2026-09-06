@@ -11,8 +11,6 @@ import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
 import { TextInput } from "@astryxdesign/core/TextInput";
 import { Button } from "@astryxdesign/core/Button";
-import { DateInput } from "@astryxdesign/core/DateInput";
-import type { ISODateString } from "@astryxdesign/core";
 
 // React Router
 import { Link } from "react-router";
@@ -23,18 +21,8 @@ import AuthLayout from "../components/AuthLayout";
 // Image
 import AirbnbLogo from "../../../assets/logo_airbnb.webp";
 
-const getEighteenYearsAgoISO = (): ISODateString => {
-    const date = new Date();
-    date.setFullYear(date.getFullYear() - 18);
-    return date.toISOString().split("T")[0] as ISODateString;
-};
-
 const SignUp = () => {
     const [email, setEmail] = useState("");
-    const [dateOfBirth, setDateOfBirth] = useState<ISODateString | undefined>(
-        undefined,
-    );
-    const [companyName, setCompanyName] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [value, setValue] = useState("guest");
@@ -108,16 +96,6 @@ const SignUp = () => {
                                             onChange={setEmail}
                                             size="lg"
                                         />
-                                        <DateInput
-                                            label="Date of Birth"
-                                            isLabelHidden
-                                            placeholder="Date of birth"
-                                            max={getEighteenYearsAgoISO()}
-                                            isRequired
-                                            size="lg"
-                                            value={dateOfBirth}
-                                            onChange={setDateOfBirth}
-                                        />
                                         <VStack gap={1}>
                                             <TextInput
                                                 label="Password"
@@ -165,14 +143,6 @@ const SignUp = () => {
                                             placeholder="john@company.com"
                                             value={email}
                                             onChange={setEmail}
-                                            size="lg"
-                                        />
-                                        <TextInput
-                                            label="Company Name"
-                                            isLabelHidden
-                                            placeholder="John Doe Inc."
-                                            value={companyName}
-                                            onChange={setCompanyName}
                                             size="lg"
                                         />
                                         <VStack gap={1}>

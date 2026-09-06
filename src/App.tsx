@@ -10,7 +10,14 @@ import { SnackbarProvider } from "notistack";
 // Context
 import { AuthProvider } from "./common/contexts/AuthContext";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 30_000,
+            retry: 1,
+        },
+    },
+});
 
 function App() {
     return (
