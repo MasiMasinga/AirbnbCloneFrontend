@@ -12,6 +12,16 @@ import { Text } from "@astryxdesign/core/Text";
 import { TextInput } from "@astryxdesign/core/TextInput";
 import { Button } from "@astryxdesign/core/Button";
 
+// Context
+import { useAuth } from "../../../common/contexts/AuthContext";
+
+// React Hook Form
+import { Controller, useForm } from "react-hook-form";
+
+// Zod
+import { z as zod } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 // React Router
 import { Link } from "react-router";
 
@@ -21,11 +31,41 @@ import AuthLayout from "../components/AuthLayout";
 // Image
 import AirbnbLogo from "../../../assets/logo_airbnb.webp";
 
+const schema = zod.object({
+    firstName: zod.string().min(1, { message: "First name is required" }),
+    emailAddress: zod.string().min(1, { message: "Email is required" }).email(),
+    password: zod.string().min(1, { message: "Password is required" }),
+    confirmPassword: zod
+        .string()
+        .min(1, { message: "Confirm password is required" }),
+});
+
+type Values = zod.infer<typeof schema>;
+const defaultValues = {
+    firstName: "",
+    emailAddress: "",
+    password: "",
+    confirmPassword: "",
+} satisfies Values;
+
 const SignUp = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const { Register, loading } = useAuth();
+
     const [value, setValue] = useState("guest");
+
+    const { control, handleSubmit } = useForm<Values>({
+        defaultValues,
+        resolver: zodResolver(schema),
+    });
+
+    const onSubmit = async (data: Values) => {
+        await Register({
+            firstName: data.firstName,
+            emailAddress: data.emailAddress,
+            password: data.password,
+            userRole: value as "host" | "guest",
+        });
+    };
 
     return (
         <AuthLayout>
@@ -76,109 +116,244 @@ const SignUp = () => {
                                     />
                                 </SegmentedControl>
 
-                                {value === "guest" && (
-                                    <VStack gap={2}>
-                                        <TextInput
-                                            label="First Name"
-                                            isLabelHidden
-                                            type="text"
-                                            placeholder="John Doe"
-                                            value={email}
-                                            onChange={setEmail}
-                                            size="lg"
-                                        />
-                                        <TextInput
-                                            label="Email"
-                                            isLabelHidden
-                                            type="email"
-                                            placeholder="john@gmail.com"
-                                            value={email}
-                                            onChange={setEmail}
-                                            size="lg"
-                                        />
-                                        <VStack gap={1}>
-                                            <TextInput
-                                                label="Password"
-                                                isLabelHidden
-                                                placeholder="Enter your password"
-                                                type="password"
-                                                value={password}
-                                                onChange={(v: string) => {
-                                                    setPassword(v);
-                                                }}
-                                                size="lg"
+                                <form onSubmit={handleSubmit(onSubmit)}>
+                                    {value === "guest" && (
+                                        <VStack gap={2}>
+                                            <Controller
+                                                control={control}
+                                                name="firstName"
+                                                render={({
+                                                    field,
+                                                    fieldState,
+                                                }) => (
+                                                    <TextInput
+                                                        {...field}
+                                                        label="First Name"
+                                                        isLabelHidden
+                                                        type="text"
+                                                        placeholder="John Doe"
+                                                        size="lg"
+                                                        status={
+                                                            fieldState.error && {
+                                                                type: "error",
+                                                                message:
+                                                                    fieldState
+                                                                        .error
+                                                                        .message,
+                                                            }
+                                                        }
+                                                    />
+                                                )}
                                             />
-                                        </VStack>
-                                        <VStack gap={1}>
-                                            <TextInput
-                                                label="Confirm Password"
-                                                isLabelHidden
-                                                placeholder="Confirm your password"
-                                                type="password"
-                                                value={confirmPassword}
-                                                onChange={(v: string) => {
-                                                    setConfirmPassword(v);
-                                                }}
-                                                size="lg"
+                                            <Controller
+                                                control={control}
+                                                name="emailAddress"
+                                                render={({
+                                                    field,
+                                                    fieldState,
+                                                }) => (
+                                                    <TextInput
+                                                        {...field}
+                                                        label="Email"
+                                                        isLabelHidden
+                                                        type="email"
+                                                        placeholder="john@gmail.com"
+                                                        size="lg"
+                                                        status={
+                                                            fieldState.error && {
+                                                                type: "error",
+                                                                message:
+                                                                    fieldState
+                                                                        .error
+                                                                        .message,
+                                                            }
+                                                        }
+                                                    />
+                                                )}
                                             />
+                                            <VStack gap={1}>
+                                                <Controller
+                                                    control={control}
+                                                    name="password"
+                                                    render={({
+                                                        field,
+                                                        fieldState,
+                                                    }) => (
+                                                        <TextInput
+                                                            {...field}
+                                                            label="Password"
+                                                            isLabelHidden
+                                                            placeholder="Enter your password"
+                                                            type="password"
+                                                            size="lg"
+                                                            status={
+                                                                fieldState.error && {
+                                                                    type: "error",
+                                                                    message:
+                                                                        fieldState
+                                                                            .error
+                                                                            .message,
+                                                                }
+                                                            }
+                                                        />
+                                                    )}
+                                                />
+                                            </VStack>
+                                            <VStack gap={1}>
+                                                <Controller
+                                                    control={control}
+                                                    name="confirmPassword"
+                                                    render={({
+                                                        field,
+                                                        fieldState,
+                                                    }) => (
+                                                        <TextInput
+                                                            {...field}
+                                                            label="Confirm Password"
+                                                            isLabelHidden
+                                                            placeholder="Confirm your password"
+                                                            type="password"
+                                                            size="lg"
+                                                            status={
+                                                                fieldState.error && {
+                                                                    type: "error",
+                                                                    message:
+                                                                        fieldState
+                                                                            .error
+                                                                            .message,
+                                                                }
+                                                            }
+                                                        />
+                                                    )}
+                                                />
+                                            </VStack>
                                         </VStack>
-                                    </VStack>
-                                )}
+                                    )}
 
-                                {value === "host" && (
-                                    <VStack gap={2}>
-                                        <TextInput
-                                            label="First Name"
-                                            isLabelHidden
-                                            type="text"
-                                            placeholder="John Doe"
-                                            value={email}
-                                            onChange={setEmail}
-                                            size="lg"
-                                        />
-                                        <TextInput
-                                            label="Email"
-                                            isLabelHidden
-                                            type="email"
-                                            placeholder="john@company.com"
-                                            value={email}
-                                            onChange={setEmail}
-                                            size="lg"
-                                        />
-                                        <VStack gap={1}>
-                                            <TextInput
-                                                label="Password"
-                                                isLabelHidden
-                                                placeholder="Enter your password"
-                                                type="password"
-                                                value={password}
-                                                onChange={(v: string) => {
-                                                    setPassword(v);
-                                                }}
-                                                size="lg"
+                                    {value === "host" && (
+                                        <VStack gap={2}>
+                                            <Controller
+                                                control={control}
+                                                name="firstName"
+                                                render={({
+                                                    field,
+                                                    fieldState,
+                                                }) => (
+                                                    <TextInput
+                                                        {...field}
+                                                        label="First Name"
+                                                        isLabelHidden
+                                                        type="text"
+                                                        placeholder="John Doe"
+                                                        size="lg"
+                                                        status={
+                                                            fieldState.error && {
+                                                                type: "error",
+                                                                message:
+                                                                    fieldState
+                                                                        .error
+                                                                        .message,
+                                                            }
+                                                        }
+                                                    />
+                                                )}
                                             />
-                                        </VStack>
-                                        <VStack gap={1}>
-                                            <TextInput
-                                                label="Confirm Password"
-                                                isLabelHidden
-                                                placeholder="Confirm your password"
-                                                type="password"
-                                                value={confirmPassword}
-                                                onChange={(v: string) => {
-                                                    setConfirmPassword(v);
-                                                }}
-                                                size="lg"
-                                            />
-                                        </VStack>
-                                    </VStack>
-                                )}
 
-                                <Button
-                                    label="Sign Up"
-                                    variant="destructive"
-                                    size="lg"
-                                />
+                                            <Controller
+                                                control={control}
+                                                name="emailAddress"
+                                                render={({
+                                                    field,
+                                                    fieldState,
+                                                }) => (
+                                                    <TextInput
+                                                        {...field}
+                                                        label="Email"
+                                                        isLabelHidden
+                                                        type="email"
+                                                        placeholder="john@company.com"
+                                                        size="lg"
+                                                        status={
+                                                            fieldState.error && {
+                                                                type: "error",
+                                                                message:
+                                                                    fieldState
+                                                                        .error
+                                                                        .message,
+                                                            }
+                                                        }
+                                                    />
+                                                )}
+                                            />
+                                            <VStack gap={1}>
+                                                <Controller
+                                                    control={control}
+                                                    name="password"
+                                                    render={({
+                                                        field,
+                                                        fieldState,
+                                                    }) => (
+                                                        <TextInput
+                                                            {...field}
+                                                            label="Password"
+                                                            isLabelHidden
+                                                            placeholder="Enter your password"
+                                                            type="password"
+                                                            size="lg"
+                                                            status={
+                                                                fieldState.error && {
+                                                                    type: "error",
+                                                                    message:
+                                                                        fieldState
+                                                                            .error
+                                                                            .message,
+                                                                }
+                                                            }
+                                                        />
+                                                    )}
+                                                />
+                                            </VStack>
+                                            <VStack gap={1}>
+                                                <Controller
+                                                    control={control}
+                                                    name="confirmPassword"
+                                                    render={({
+                                                        field,
+                                                        fieldState,
+                                                    }) => (
+                                                        <TextInput
+                                                            {...field}
+                                                            label="Confirm Password"
+                                                            isLabelHidden
+                                                            placeholder="Confirm your password"
+                                                            type="password"
+                                                            size="lg"
+                                                            status={
+                                                                fieldState.error && {
+                                                                    type: "error",
+                                                                    message:
+                                                                        fieldState
+                                                                            .error
+                                                                            .message,
+                                                                }
+                                                            }
+                                                        />
+                                                    )}
+                                                />
+                                            </VStack>
+                                        </VStack>
+                                    )}
+
+                                    <Button
+                                        label="Sign Up"
+                                        variant="destructive"
+                                        size="lg"
+                                        type="submit"
+                                        width="100%"
+                                        isLoading={loading}
+                                        style={{ marginTop: "8px" }}
+                                    />
+                                </form>
                             </VStack>
                         </Center>
                     </StackItem>

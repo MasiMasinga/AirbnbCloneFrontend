@@ -1,5 +1,8 @@
 // React Router
-import { Outlet, useLocation } from "react-router";
+import { Outlet } from "react-router";
+
+// Context
+import { useAuth } from "../contexts/AuthContext";
 
 // Astryx
 import {
@@ -21,8 +24,7 @@ import HostDrawerLinkList from "./containers/HostDrawerLinkList";
 import AirbnbLogo from "../../assets/logo_airbnb.webp";
 
 const DashboardLayout = () => {
-    const { pathname } = useLocation();
-    const isHostMode = pathname.startsWith("/host");
+    const { user, Logout } = useAuth();
 
     return (
         <AppShell
@@ -49,14 +51,18 @@ const DashboardLayout = () => {
                                 {
                                     title: "Account",
                                     icon: <UserCircleIcon />,
-                                    href: isHostMode
-                                        ? "/host/account"
-                                        : "/guest/account",
+                                    href:
+                                        user?.userRole === "host"
+                                            ? "/host/account"
+                                            : "/guest/account",
                                 },
                                 {
                                     title: "Logout",
                                     icon: <LogOut />,
                                     href: "/login",
+                                    onClick: () => {
+                                        Logout();
+                                    },
                                 },
                             ]}
                         />
@@ -65,7 +71,7 @@ const DashboardLayout = () => {
             }
             sideNav={
                 <SideNav>
-                    {isHostMode ? (
+                    {user?.userRole === "host" ? (
                         <HostDrawerLinkList />
                     ) : (
                         <GuestDrawerLinkList />
