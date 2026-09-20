@@ -13,19 +13,19 @@ const GuestRoutes = [
         element: <AsyncGuest />
     },
     {
-        path: "search",
+        path: "/guest/search",
         element: <AsyncGuestSearch />
     },
     {
-        path: "account",
+        path: "/guest/account",
         element: <AsyncGuestAccount />
     },
     {
-        path: "wishlists",
+        path: "/guest/wishlists",
         element: <AsyncGuestWishlists />
     },
     {
-        path: "trips",
+        path: "/guest/trips",
         element: <AsyncGuestTrips />
     }
 ]

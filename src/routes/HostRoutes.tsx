@@ -10,27 +10,27 @@ const AsyncHostReservations = lazy(() => import("../pages/host/reservations"));
 
 const AdminRoutes = [
     {
-        path: "host",
+        path: "/host",
         element: <AsyncHostOverview />
     },
     {
-        path: "listings",
+        path: "/host/listings",
         element: <AsyncHostListings />
     },
     {
-        path: "bookings",
+        path: "/host/bookings",
         element: <AsyncHostBookings />  
     },
     {
-        path: "account",
+        path: "/host/account",
         element: <AsyncHostAccount />
     },
     {
-        path: "payouts",
+        path: "/host/payouts",
         element: <AsyncHostPayouts />
     },
     {
-        path: "reservations",
+        path: "/host/reservations",
         element: <AsyncHostReservations />
     }
 ];
