@@ -73,7 +73,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const response = await AuthService.Register(payload);
         if (response.status) {
             showSuccess("Registration successful!");
-            window.location.href = "/";
+            window.location.href = "/login";
         } else {
             showError("Registration failed. Please try again.");
         }
