@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // Asrtyx
 import { VStack, HStack, StackItem } from "@astryxdesign/core/Layout";
 import { Center } from "@astryxdesign/core/Center";
@@ -5,6 +7,9 @@ import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
 import { TextInput } from "@astryxdesign/core/TextInput";
 import { Button } from "@astryxdesign/core/Button";
+
+// Lucide
+import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 
 // Context
 import { useAuth } from "../../../common/contexts/AuthContext";
@@ -38,6 +43,8 @@ const defaultValues = {
 
 const Login = () => {
     const { Login, loading } = useAuth();
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const { control, handleSubmit } = useForm<Values>({
         defaultValues,
@@ -97,6 +104,8 @@ const Login = () => {
                                                     type="email"
                                                     placeholder="john@gmail.com"
                                                     size="lg"
+                                                    hasClear
+                                                    startIcon={Mail}
                                                     status={
                                                         fieldState.error && {
                                                             type: "error",
@@ -116,23 +125,62 @@ const Login = () => {
                                                     field,
                                                     fieldState,
                                                 }) => (
-                                                    <TextInput
-                                                        {...field}
-                                                        label="Password"
-                                                        isLabelHidden
-                                                        placeholder="Enter your password"
-                                                        type="password"
-                                                        size="lg"
-                                                        status={
-                                                            fieldState.error && {
-                                                                type: "error",
-                                                                message:
-                                                                    fieldState
-                                                                        .error
-                                                                        .message,
+                                                    <div className="password-field">
+                                                        <TextInput
+                                                            {...field}
+                                                            label="Password"
+                                                            isLabelHidden
+                                                            type={
+                                                                showPassword
+                                                                    ? "text"
+                                                                    : "password"
                                                             }
-                                                        }
-                                                    />
+                                                            placeholder="Enter password"
+                                                            size="lg"
+                                                            startIcon={Lock}
+                                                            status={
+                                                                fieldState.error && {
+                                                                    type: "error",
+                                                                    message:
+                                                                        fieldState
+                                                                            .error
+                                                                            .message,
+                                                                }
+                                                            }
+                                                        />
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() =>
+                                                                setShowPassword(
+                                                                    (prev) =>
+                                                                        !prev,
+                                                                )
+                                                            }
+                                                            aria-label={
+                                                                showPassword
+                                                                    ? "Hide password"
+                                                                    : "Show password"
+                                                            }
+                                                            style={{
+                                                                position:
+                                                                    "absolute",
+                                                                right: 5,
+                                                                top: 9,
+                                                                zIndex: 10,
+                                                            }}
+                                                        >
+                                                            {showPassword ? (
+                                                                <EyeOff
+                                                                    size={18}
+                                                                />
+                                                            ) : (
+                                                                <Eye
+                                                                    size={18}
+                                                                />
+                                                            )}
+                                                        </button>
+                                                    </div>
                                                 )}
                                             />
                                         </VStack>

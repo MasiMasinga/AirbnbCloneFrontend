@@ -12,6 +12,9 @@ import { Text } from "@astryxdesign/core/Text";
 import { TextInput } from "@astryxdesign/core/TextInput";
 import { Button } from "@astryxdesign/core/Button";
 
+// Lucide
+import { User, Mail, Lock, Eye, EyeOff } from "lucide-react";
+
 // Context
 import { useAuth } from "../../../common/contexts/AuthContext";
 
@@ -52,6 +55,8 @@ const SignUp = () => {
     const { Register, loading } = useAuth();
 
     const [value, setValue] = useState("guest");
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const { control, handleSubmit } = useForm<Values>({
         defaultValues,
@@ -133,6 +138,8 @@ const SignUp = () => {
                                                         type="text"
                                                         placeholder="John Doe"
                                                         size="lg"
+                                                        hasClear
+                                                        startIcon={User}
                                                         status={
                                                             fieldState.error && {
                                                                 type: "error",
@@ -159,6 +166,8 @@ const SignUp = () => {
                                                         type="email"
                                                         placeholder="john@gmail.com"
                                                         size="lg"
+                                                        hasClear
+                                                        startIcon={Mail}
                                                         status={
                                                             fieldState.error && {
                                                                 type: "error",
@@ -179,23 +188,67 @@ const SignUp = () => {
                                                         field,
                                                         fieldState,
                                                     }) => (
-                                                        <TextInput
-                                                            {...field}
-                                                            label="Password"
-                                                            isLabelHidden
-                                                            placeholder="Enter your password"
-                                                            type="password"
-                                                            size="lg"
-                                                            status={
-                                                                fieldState.error && {
-                                                                    type: "error",
-                                                                    message:
-                                                                        fieldState
-                                                                            .error
-                                                                            .message,
+                                                        <div className="password-field">
+                                                            <TextInput
+                                                                {...field}
+                                                                label="Password"
+                                                                isLabelHidden
+                                                                placeholder="Enter your password"
+                                                                type={
+                                                                    showPassword
+                                                                        ? "text"
+                                                                        : "password"
                                                                 }
-                                                            }
-                                                        />
+                                                                size="lg"
+                                                                startIcon={Lock}
+                                                                status={
+                                                                    fieldState.error && {
+                                                                        type: "error",
+                                                                        message:
+                                                                            fieldState
+                                                                                .error
+                                                                                .message,
+                                                                    }
+                                                                }
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                onClick={() =>
+                                                                    setShowPassword(
+                                                                        (
+                                                                            prev,
+                                                                        ) =>
+                                                                            !prev,
+                                                                    )
+                                                                }
+                                                                aria-label={
+                                                                    showPassword
+                                                                        ? "Hide password"
+                                                                        : "Show password"
+                                                                }
+                                                                style={{
+                                                                    position:
+                                                                        "absolute",
+                                                                    right: 5,
+                                                                    top: 9,
+                                                                    zIndex: 10,
+                                                                }}
+                                                            >
+                                                                {showPassword ? (
+                                                                    <EyeOff
+                                                                        size={
+                                                                            18
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    <Eye
+                                                                        size={
+                                                                            18
+                                                                        }
+                                                                    />
+                                                                )}
+                                                            </button>
+                                                        </div>
                                                     )}
                                                 />
                                             </VStack>
@@ -207,23 +260,67 @@ const SignUp = () => {
                                                         field,
                                                         fieldState,
                                                     }) => (
-                                                        <TextInput
-                                                            {...field}
-                                                            label="Confirm Password"
-                                                            isLabelHidden
-                                                            placeholder="Confirm your password"
-                                                            type="password"
-                                                            size="lg"
-                                                            status={
-                                                                fieldState.error && {
-                                                                    type: "error",
-                                                                    message:
-                                                                        fieldState
-                                                                            .error
-                                                                            .message,
+                                                        <div className="password-field">
+                                                            <TextInput
+                                                                {...field}
+                                                                label="Confirm Password"
+                                                                isLabelHidden
+                                                                placeholder="Confirm your password"
+                                                                type={
+                                                                    showConfirmPassword
+                                                                        ? "text"
+                                                                        : "password"
                                                                 }
-                                                            }
-                                                        />
+                                                                size="lg"
+                                                                startIcon={Lock}
+                                                                status={
+                                                                    fieldState.error && {
+                                                                        type: "error",
+                                                                        message:
+                                                                            fieldState
+                                                                                .error
+                                                                                .message,
+                                                                    }
+                                                                }
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                onClick={() =>
+                                                                    setShowConfirmPassword(
+                                                                        (
+                                                                            prev,
+                                                                        ) =>
+                                                                            !prev,
+                                                                    )
+                                                                }
+                                                                aria-label={
+                                                                    showConfirmPassword
+                                                                        ? "Hide password"
+                                                                        : "Show password"
+                                                                }
+                                                                style={{
+                                                                    position:
+                                                                        "absolute",
+                                                                    right: 5,
+                                                                    top: 9,
+                                                                    zIndex: 10,
+                                                                }}
+                                                            >
+                                                                {showConfirmPassword ? (
+                                                                    <EyeOff
+                                                                        size={
+                                                                            18
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    <Eye
+                                                                        size={
+                                                                            18
+                                                                        }
+                                                                    />
+                                                                )}
+                                                            </button>
+                                                        </div>
                                                     )}
                                                 />
                                             </VStack>
@@ -246,6 +343,8 @@ const SignUp = () => {
                                                         type="text"
                                                         placeholder="John Doe"
                                                         size="lg"
+                                                        startIcon={User}
+                                                        hasClear
                                                         status={
                                                             fieldState.error && {
                                                                 type: "error",
@@ -273,6 +372,8 @@ const SignUp = () => {
                                                         type="email"
                                                         placeholder="john@company.com"
                                                         size="lg"
+                                                        startIcon={Mail}
+                                                        hasClear
                                                         status={
                                                             fieldState.error && {
                                                                 type: "error",
@@ -293,23 +394,68 @@ const SignUp = () => {
                                                         field,
                                                         fieldState,
                                                     }) => (
-                                                        <TextInput
-                                                            {...field}
-                                                            label="Password"
-                                                            isLabelHidden
-                                                            placeholder="Enter your password"
-                                                            type="password"
-                                                            size="lg"
-                                                            status={
-                                                                fieldState.error && {
-                                                                    type: "error",
-                                                                    message:
-                                                                        fieldState
-                                                                            .error
-                                                                            .message,
+                                                        <div className="password-field">
+                                                            <TextInput
+                                                                {...field}
+                                                                label="Password"
+                                                                isLabelHidden
+                                                                placeholder="Enter your password"
+                                                                type={
+                                                                    showPassword
+                                                                        ? "text"
+                                                                        : "password"
                                                                 }
-                                                            }
-                                                        />
+                                                                size="lg"
+                                                                startIcon={Lock}
+                                                                status={
+                                                                    fieldState.error && {
+                                                                        type: "error",
+                                                                        message:
+                                                                            fieldState
+                                                                                .error
+                                                                                .message,
+                                                                    }
+                                                                }
+                                                            />
+
+                                                            <button
+                                                                type="button"
+                                                                onClick={() =>
+                                                                    setShowPassword(
+                                                                        (
+                                                                            prev,
+                                                                        ) =>
+                                                                            !prev,
+                                                                    )
+                                                                }
+                                                                aria-label={
+                                                                    showPassword
+                                                                        ? "Hide password"
+                                                                        : "Show password"
+                                                                }
+                                                                style={{
+                                                                    position:
+                                                                        "absolute",
+                                                                    right: 5,
+                                                                    top: 9,
+                                                                    zIndex: 10,
+                                                                }}
+                                                            >
+                                                                {showPassword ? (
+                                                                    <EyeOff
+                                                                        size={
+                                                                            18
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    <Eye
+                                                                        size={
+                                                                            18
+                                                                        }
+                                                                    />
+                                                                )}
+                                                            </button>
+                                                        </div>
                                                     )}
                                                 />
                                             </VStack>
@@ -321,23 +467,68 @@ const SignUp = () => {
                                                         field,
                                                         fieldState,
                                                     }) => (
-                                                        <TextInput
-                                                            {...field}
-                                                            label="Confirm Password"
-                                                            isLabelHidden
-                                                            placeholder="Confirm your password"
-                                                            type="password"
-                                                            size="lg"
-                                                            status={
-                                                                fieldState.error && {
-                                                                    type: "error",
-                                                                    message:
-                                                                        fieldState
-                                                                            .error
-                                                                            .message,
+                                                        <div className="password-field">
+                                                            <TextInput
+                                                                {...field}
+                                                                label="Confirm Password"
+                                                                isLabelHidden
+                                                                placeholder="Confirm your password"
+                                                                type={
+                                                                    showConfirmPassword
+                                                                        ? "text"
+                                                                        : "password"
                                                                 }
-                                                            }
-                                                        />
+                                                                size="lg"
+                                                                startIcon={Lock}
+                                                                status={
+                                                                    fieldState.error && {
+                                                                        type: "error",
+                                                                        message:
+                                                                            fieldState
+                                                                                .error
+                                                                                .message,
+                                                                    }
+                                                                }
+                                                            />
+
+                                                            <button
+                                                                type="button"
+                                                                onClick={() =>
+                                                                    setShowConfirmPassword(
+                                                                        (
+                                                                            prev,
+                                                                        ) =>
+                                                                            !prev,
+                                                                    )
+                                                                }
+                                                                aria-label={
+                                                                    showConfirmPassword
+                                                                        ? "Hide password"
+                                                                        : "Show password"
+                                                                }
+                                                                style={{
+                                                                    position:
+                                                                        "absolute",
+                                                                    right: 5,
+                                                                    top: 9,
+                                                                    zIndex: 10,
+                                                                }}
+                                                            >
+                                                                {showConfirmPassword ? (
+                                                                    <EyeOff
+                                                                        size={
+                                                                            18
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    <Eye
+                                                                        size={
+                                                                            18
+                                                                        }
+                                                                    />
+                                                                )}
+                                                            </button>
+                                                        </div>
                                                     )}
                                                 />
                                             </VStack>
